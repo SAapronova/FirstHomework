@@ -27,13 +27,6 @@ public class ExecutionListener implements ITestListener {
 
     }
 
-    public void onStart(ITestContext iTestContext) {
-
-    }
-
-    public void onFinish(ITestContext iTestContext) {
-        this.sendTestClassStatus(iTestContext);
-    }
 
     private void sendTestMethodStatus(ITestResult iTestResult, String status) {
         Point point = Point.measurement("testmethod")
@@ -48,14 +41,6 @@ public class ExecutionListener implements ITestListener {
         ResultSender.send(point);
     }
 
-    private void sendTestClassStatus(ITestContext iTestContext) {
-        Point point = Point.measurement("testclass")
-                .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .tag("name", iTestContext.getAllTestMethods()[0].getTestClass().getName())
-                .addField("duration", (iTestContext.getEndDate().getTime() - iTestContext.getStartDate().getTime()))
-                .build();
-        ResultSender.send(point);
-    }
 
 }
 
